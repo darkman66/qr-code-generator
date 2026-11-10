@@ -11,10 +11,14 @@ from PIL import Image, ImageDraw, ImageFont
 
 
 def load_font(size):
-    for name in ("arial.ttf", "Arial.ttf", "DejaVuSans.ttf",
-                 "/System/Library/Fonts/Helvetica.ttc",
-                 "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
-                 "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf"):
+    for name in (
+        "arial.ttf",
+        "Arial.ttf",
+        "DejaVuSans.ttf",
+        "/System/Library/Fonts/Helvetica.ttc",
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+        "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
+    ):
         try:
             return ImageFont.truetype(name, size)
         except OSError:
@@ -50,8 +54,8 @@ def make_badge(url, text, out):
     qr_size = 800
     qr_img = qr_img.resize((qr_size, qr_size), Image.NEAREST)
 
-    frame = 40          # black frame thickness
-    pad = 80            # white padding around QR
+    frame = 40  # black frame thickness
+    pad = 80  # white padding around QR
     box = qr_size + 2 * (pad + frame)
     W = box
     gap = 30
@@ -100,6 +104,7 @@ def make_badge(url, text, out):
 def main() -> None:
     p = argparse.ArgumentParser(description="Generate a styled QR code badge")
     p.add_argument("url", help="URL to encode")
+
     p.add_argument("text", nargs="?", default="SCAN ME", help="Label text")
     p.add_argument("-o", "--output", default="qr_badge.png", help="Output file")
     a = p.parse_args()
